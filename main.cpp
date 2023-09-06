@@ -1,7 +1,15 @@
 #include "three_band_filter_bank.h"
 #include "audio_utils.h"
+#include <string_view>
+
+#ifdef _MSC_VER
+#include <direct.h>
+#endif
 
 int main() {
+#ifdef _MSC_VER
+    _chdir("..");
+#endif
     const int frame_length_48k = 48 * 16;
     const int frame_length_16k = 16 * 16;
     std::string_view in_pcm_path = R"(../data/input/VOICEACTRESS100_054.pcm)";
@@ -49,12 +57,12 @@ int main() {
 
         for (int j = 0; j < 3; ++j) {
             std::copy(split_bands_float[j].begin(), split_bands_float[j].end(), split_bands_short[j].begin());
-            writers[j].write_bytes(split_bands_short[j].begin(), frame_16k_bytes_size);
+            writers[j].write_bytes(split_bands_short[j].data(), frame_16k_bytes_size);
         }
 
         filterBank.Synthesis(split_bands_view, out_48k_arr_view);
         std::copy(out_48k_arr_float.begin(), out_48k_arr_float.end(), out_48k_arr_short.begin());
-        writers[3].write_bytes(out_48k_arr_short.begin(), frame_48k_bytes_size);
+        writers[3].write_bytes(out_48k_arr_short.data(), frame_48k_bytes_size);
         printf("frame_idx=%d\n", i);
     }
     return 0;

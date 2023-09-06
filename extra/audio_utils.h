@@ -6,7 +6,7 @@ public:
     explicit PCMReader(const char *filepath) {
         _file = fopen(filepath, "rb");
         if (nullptr == _file) {
-            printf("==> open file %s error.\n", filepath);
+            fprintf(stderr, "==> open file %s error.\n", filepath);
             abort();
         }
     }
@@ -23,12 +23,12 @@ public:
 
     size_t read_bytes(void *to, size_t size) {
         if (nullptr == _file) {
-            printf("==> file empty!");
+            fprintf(stderr, "==> file empty!");
             abort();
         }
         size_t readsize = fread(to, sizeof(char), size, _file);
         if (readsize != size) {
-            printf("read size err!\n");
+            fprintf(stderr, "read size err!\n");
             abort();
         }
         return readsize;
@@ -51,7 +51,7 @@ public:
     explicit PCMWriter(const char *filepath) {
         _file = fopen(filepath, "wb");
         if (nullptr == _file) {
-            printf("==> open file %s error.\n", filepath);
+            fprintf(stderr, "==> open file %s error.\n", filepath);
             abort();
         }
 
@@ -59,7 +59,7 @@ public:
 
     void write_bytes(void *src, size_t size) {
         if (nullptr == _file) {
-            printf("==> file empty!");
+            fprintf(stderr, "==> file empty!");
             abort();
         }
         fwrite(src, sizeof(char), size, _file);
