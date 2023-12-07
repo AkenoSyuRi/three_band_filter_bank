@@ -2,6 +2,7 @@
 #include "audio_utils.h"
 
 int main() {
+    /* =========== config start =========== */
     const int frame_length_48k = 48 * 16;
     const int frame_length_16k = 16 * 16;
     std::string_view in_pcm_path = R"(../data/input/VOICEACTRESS100_054.pcm)";
@@ -11,6 +12,7 @@ int main() {
             R"(../data/output/VOICEACTRESS100_054_high_band.pcm)",
             R"(../data/output/VOICEACTRESS100_054_syn_out.pcm)",
     };
+    /* =========== config end =========== */
 
     PCMReader reader(in_pcm_path.data());
     auto n_samples = reader.sample_size_in_16bit();

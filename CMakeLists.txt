@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.26)
-project(three_bands_filter_bank)
+project(three_band_filter_bank)
 
 set(CMAKE_CXX_STANDARD 17)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
